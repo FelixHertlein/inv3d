@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="ICDAR '23:  Inv3D: a high-resolution 3D invoice dataset for template-guided single-image document unwarping"
+    />
+    <meta
+      name="keywords"
+      content="Document Unwarping, Dataset, Template, OCR, Transformer"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Inv3D: a high-resolution 3D invoice dataset for template-guided
+      single-image document unwarping
+    </title>
+
+    <link
+      rel="stylesheet"
+      href="./static/fonts/fontawesome/css/fontawesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./static/fonts/fontawesome/css/brands.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="./static/fonts/fontawesome/css/solid.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./static/css/bulma.min.css" />
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css" />
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css" />
+    <link rel="stylesheet" href="./static/css/fonts.css" />
+    <link rel="stylesheet" href="./static/css/academicons.min.css" />
+    <link rel="stylesheet" href="./static/css/index.css" />
+    <link rel="icon" href="./static/images/favicon.ico" />
+
+    <script src="./static/js/jquery.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+  </head>
+  <body>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">Inv3D</h1>
+              <h1 class="title is-2 publication-title">
+                A high-resolution 3D invoice dataset for template-guided
+                single-image document unwarping
+              </h1>
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                  <a
+                    href="https://www.fzi.de/team/felix-hertlein/"
+                    target="_blank"
+                    >Felix Hertlein</a
+                  >
+                  <span class="author-block"
+                    >,
+                    <a href="https://a-nau.github.io" target="_blank"
+                      >Alexander Naumann</a
+                    >
+                  </span>
+                </span>
+                <span class="author-block">
+                  and
+                  <a
+                    href="https://www.linkedin.com/in/patrick-philipp-97a240199/"
+                    target="_blank"
+                    >Patrick Philipp</a
+                  >
+                </span>
+              </div>
+
+              <div class="is-size-6 publication-authors">
+                <span class="author-block">
+                  FZI Research Center for Information Technology, Karlsruhe,
+                  Germany
+                </span>
+                <br />
+                <span class="author-block">
+                  Karlsruhe Institute of Technology (KIT), Karlsruhe, Germany
+                </span>
+              </div>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <!-- PDF Link. -->
+                  <!--                            <span class="link-block">-->
+                  <!--                                <a href="" class="external-link button is-normal is-rounded is-dark">-->
+                  <!--                                  <span class="icon">-->
+                  <!--                                      <i class="fas fa-file-pdf"></i>-->
+                  <!--                                  </span>-->
+                  <!--                                  <span>Paper (tbd)</span>-->
+                  <!--                                </a>-->
+                  <!--                              </span>-->
+                  <span class="link-block">
+                    <a
+                      href="https://link.springer.com/article/10.1007/s10032-023-00434-x"
+                      class="external-link button is-normal is-rounded is-dark"
+                      target="_blank"
+                    >
+                      <span class="icon">
+                        <i class="ai ai-springer" style="font-size: 1.2rem"></i>
+                      </span>
+                      <span>Paper</span>
+                    </a>
+                  </span>
+                  <!-- Code Link. -->
+                  <span class="link-block">
+                    <a
+                      href="https://github.com/felixhertlein/"
+                      class="external-link button is-normal is-rounded is-dark"
+                      target="_blank"
+                    >
+                      <span class="icon">
+                        <i class="fab fa-github"></i>
+                      </span>
+                      <span>Code (soon!)</span>
+                    </a>
+                  </span>
+                  <!-- Dataset Link. -->
+                  <span class="link-block">
+                    <a
+                      href="https://github.com/felixhertlein/"
+                      class="external-link button is-normal is-rounded is-dark"
+                      target="_blank"
+                    >
+                      <span class="icon">
+                        <i class="far fa-images"></i>
+                      </span>
+                      <span>Data (soon!)</span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <!-- Abstract. -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+              <p>
+                Numerous business workflows involve printed forms, such as
+                invoices or receipts, which are often manually digitalized to
+                persistently search or store the data. As hardware scanners are
+                costly and inflexible, smartphones are increasingly used for
+                digitalization. Here, processing algorithms need to deal with
+                prevailing environmental factors, such as shadows or crumples.
+                Current state-of-the-art approaches learn supervised image
+                dewarping models based on pairs of raw images and rectification
+                meshes. The available results show promising predictive
+                accuracies for dewarping, but generated errors still lead to
+                sub-optimal information retrieval.
+              </p>
+              <p>
+                In this paper, we explore the potential of improving dewarping
+                models using additional, structured information in the form of
+                invoice templates. We provide two core contributions: (1) a
+                novel dataset, referred to as Inv3D, comprising synthetic and
+                real-world high-resolution invoice images with structural
+                templates, rectification meshes, and a multiplicity of per-pixel
+                supervision signals and (2) a novel image dewarping algorithm,
+                which extends the state-of-the-art approach GeoTr to leverage
+                structural templates using attention.
+              </p>
+              <p>
+                Our extensive evaluation includes an implementation of DewarpNet
+                and shows that exploiting structured templates can improve the
+                performance for image dewarping. We report superior performance
+                for the proposed algorithm on our new benchmark for all metrics,
+                including an improved local distortion of 26.1 %. We made our
+                new dataset and all code publicly available on this website.
+              </p>
+            </div>
+          </div>
+        </div>
+        <br />
+        <!--/ Abstract. -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">GeoTrTemplate</h2>
+            <div class="content has-text-justified">
+              We present a model named GeoTrTemplate, which leverages a-priori
+              known templates in document dewarping. Our model extends the GeoTr
+              model by <a href="#feng2021">Feng et al. [1]</a>.
+            </div>
+            <p>
+              <img src="static/images/overview.jpg" width="80%" />
+              <br />
+              <span style="font-size: small">
+                <b>Figure</b>: We take an photo and the corresponding template
+                as RGB images as input and generate image representations. These
+                representations are combined using a transformer and
+                subsequently upsampled to yield the backward mapping. Finally,
+                we apply the backwad map to the source image and yield the
+                geometrically normalized image.
+              </span>
+              <br />
+            </p>
+
+            <br />
+            <br />
+            <br />
+            <h2 class="title is-3">Inv3D Dataset</h2>
+            <div class="content has-text-justified">
+              We present a novel high-resolution dataset with template
+              information, 3D renderings, a multiplicity of supervision signal
+              maps, and backward transforms to enable designated learning of
+              structural features for image dewarping.
+              <ul>
+                <li>25,000 images with full 2D and 3D annotations</li>
+                <li>
+                  created using 100 HTML templates for a wide layout variety
+                </li>
+                <li>fully randomized realistic content</li>
+              </ul>
+            </div>
+            <section class="hero is-light is-small">
+              <div class="hero-body">
+                <div class="container">
+                  <div id="results-carousel" class="carousel results-carousel">
+                    <div class="item">
+                      <div class="item-content">
+                        <img src="static/images/example/flat_document.png" />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">Flat document</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/example/flat_information_delta.png"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">Flat information delta</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img src="static/images/example/flat_template.png" />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">Flat template</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img src="static/images/example/flat_text_mask.png" />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">Flat text mask</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/example/ground_truth_tags_vis.png"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">Ground truth tags</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img src="static/images/example/warped_document.png" />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">Warped document</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img src="static/images/example/warped_albedo.png" />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">Warped albedo map</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img src="static/images/example/warped_angle.png" />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">Warped angle map</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img src="static/images/example/warped_curvature.png" />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">Warped curvature map</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img src="static/images/example/warped_depth.png" />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">Warped depth map</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img src="static/images/example/warped_normal.png" />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">Warped normal map</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img src="static/images/example/warped_recon.png" />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Warped reconstruction map
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img src="static/images/example/warped_text_mask.png" />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">Warped text mask</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img src="static/images/example/warped_UV.png" />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">Warped UV map</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img src="static/images/example/warped_WC.png" />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Warped world coordinates
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img src="static/images/example/warped_BM.png" />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">Backward mapping</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  Randomly sampled image from Inv3D.
+                </div>
+              </div>
+            </section>
+
+            <br />
+            <br />
+            <br />
+            <h2 class="title is-3">Inv3DReal Dataset</h2>
+            <div class="content has-text-justified">
+              We introduce a real-world dataset, to measure the performance of
+              dewarping models under realistic conditions. Inv3DReal consists of
+              360 pictures displaying printed and altered invoices taken by a
+              smartphone camera under different lighting conditions and
+              backgrounds.
+
+              <ul style="display: flex; width: 100%; gap: 3em">
+                <li>
+                  six different deformations
+                  <ul>
+                    <li>perspective</li>
+                    <li>curled</li>
+                    <li>fewfold</li>
+                    <li>multifold</li>
+                    <li>crumples easy</li>
+                    <li>crumples hard</li>
+                  </ul>
+                </li>
+
+                <li style="margin: 0">
+                  three different settings
+                  <ul>
+                    <li>bright</li>
+                    <li>colored</li>
+                    <li>shadow</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
+            <section class="hero is-light is-small">
+              <div class="hero-body">
+                <div class="container">
+                  <div id="results-carousel" class="carousel results-carousel">
+                    <!-- Crumples hard -->
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_crumpleshard_bright.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Crumples hard & bright setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_crumpleshard_color.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Crumples hard & color setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_crumpleshard_shadow.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Crumples hard & shadow setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Crumples easy -->
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_crumpleseasy_bright.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Crumples easy & bright setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_crumpleseasy_color.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Crumples easy & color setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_crumpleseasy_shadow.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Crumples easy & shadow setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Multifold -->
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_multifold_bright.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Multifold & bright setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_multifold_color.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Multifold & color setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_multifold_shadow.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Multifold & shadow setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Fewfold -->
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_fewfold_bright.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Fewfold & bright setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_fewfold_color.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Fewfold & color setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_fewfold_shadow.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Fewfold & shadow setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Curled -->
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_curled_bright.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Curled & bright setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_curled_color.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">Curled & color setting</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_curled_shadow.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Curled & shadow setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Perspective -->
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_perspective_bright.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Perspective & bright setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_perspective_color.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Perspective & color setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <div class="item-content">
+                        <img
+                          src="static/images/real/warped_document_perspective_shadow.jpg"
+                        />
+                        <div class="item-caption-wrapper">
+                          <div class="item-caption">
+                            Perspective & shadow setting
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  Randomly sampled image from Inv3DReal.
+                </div>
+              </div>
+            </section>
+
+            <br />
+            <br />
+            <br />
+            <section class="section" id="BibTeX">
+              <div class="container is-max-desktop content">
+                <h2 class="title">BibTeX</h2>
+                <pre style="text-align: left">
+<code>
+@article{Hertlein2023,
+  title        = {Inv3D: a high-resolution 3D invoice dataset for template-guided single-image document unwarping},
+  author       = {Hertlein, Felix and Naumann, Alexander and Philipp, Patrick},
+  year         = 2023,
+  month        = {Apr},
+  day          = 29,
+  journal      = {International Journal on Document Analysis and Recognition (IJDAR)},
+  doi          = {10.1007/s10032-023-00434-x},
+  ISSN         = {1433-2825},
+  url          = {https://doi.org/10.1007/s10032-023-00434-x}
+}  
+</code>
+                </pre>
+              </div>
+            </section>
+
+            <br />
+            <br />
+            <br />
+            <h2 class="title is-4">References</h2>
+            <div class="content has-text-justified">
+              <div style="color: gray" id="feng2021">
+                [1] Feng, H., Wang, Y., Zhou, W., et al.: Doctr: Document image
+                transformer for geometric unwarping and illumination correction.
+                In: Proceedings of the 29th ACM International Conference on
+                Multimedia, pp 273–281 (2021a)
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column is-centered"></div>
+      </div>
+      <footer class="footer">
+        <div class="container">
+          <div class="content has-text-centered">
+            <a
+              class="icon-link"
+              href="https://link.springer.com/content/pdf/10.1007/s10032-023-00434-x.pdf"
+              target="_blank"
+              class="external-link"
+            >
+              <i class="fas fa-file-pdf"></i>
+            </a>
+            <a
+              class="icon-link"
+              href="https://github.com/felixhertlein/"
+              target="_blank"
+              class="external-link"
+              disabled
+            >
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+          <div class="columns is-centered">
+            <div class="column is-8">
+              <div class="content">
+                <p style="text-align: center">
+                  This website template is borrowed from
+                  <a
+                    href="https://github.com/nerfies/nerfies.github.io"
+                    target="_blank"
+                    >https://nerfies.github.io</a
+                  >
+                </p>
+                <p style="text-align: center">© Felix Hertlein, 2023</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </section>
+  </body>
+</html>
